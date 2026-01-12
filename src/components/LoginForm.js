@@ -13,38 +13,47 @@ function LoginForm(props) {
     }
 
     const [user, setUser] = useState(userDefault);
+    const [shouldThrow, setShouldThrow] = useState(false);
 
     function checkValue(value) {
-        if(value.length <= 3)  {
-            throw new Error('The field is too short!');
-        }
+      if (value.length <= 3) {
+        throw new Error("The field is too short!");
+      }
     }
 
     function handleChange(e) {
-        const {name: field, value} = e.target;
-        if(typeof user[field] !== 'undefined') {
-            checkValue(value);
-            setUser({...user, [field]: {value, error: ''} });
+      const { name: field, value } = e.target;
+      if (typeof user[field] !== "undefined") {
+        try {
+          checkValue(value);
+          setUser({ ...user, [field]: { value, error: "" } });
+        } catch (error) {
+          setUser({ ...user, [field]: { value, error: error.message } }); // Komunikat!
         }
+      }
     }
 
     function throwError() {
-        throw new Error('Incorrect data!');
+      throw new Error("Incorrect data!");
     }
 
     function handleSubmit(e) {
-        e.preventDefault();
+      e.preventDefault();
+      const { tryAuth } = props;
+      const { login, password } = e.target.elements;
 
-        const {tryAuth} = props;
-        const {login, password} = e.target.elements;
-
-        const authResp = tryAuth(login.value, password.value);
-        if(typeof authResp.then === 'function') { // if return Promise
-            authResp.catch(() => throwError() );
-        } else if(!authResp) {
-            throwError()
-        }
+      const authResp = tryAuth(login.value, password.value);
+      if (typeof authResp.then === "function") {
+        authResp.catch(() => setShouldThrow(true));
+      } else if (!authResp) {
+        setShouldThrow(true);
+      }
     }
+
+    if (shouldThrow) {
+      throwError();
+    }
+
 
     const {login, password} = user;
     return (
@@ -67,3 +76,4 @@ function LoginForm(props) {
 }
 
 export default LoginForm;
+
