@@ -1,5 +1,5 @@
 import React from 'react';
-import Md5Form from './components/Md5Form';
+import Md5Form from "./components/md5Form/Md5Form";
 import {getMd5} from './providers/md5Provider';
 
 const Task03 = () => {

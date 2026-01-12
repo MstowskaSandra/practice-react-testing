@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import users from './../db/users';
-import {getMd5} from './../providers/md5Provider';
-import LoginForm from "./loginForm/LoginForm";
+import users from '../../db/users';
+import {getMd5} from '../../providers/md5Provider';
+import LoginForm from "../loginForm/LoginForm";
 
 const Auth = () => {
     const [user, setUser] = useState(null);
