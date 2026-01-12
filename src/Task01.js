@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginForm from './components/LoginForm';
+import LoginForm from "./components/loginForm/LoginForm";
 import CatchError from "./components/CatchError";
 
 const Task01 = ({ tryAuth }) => {

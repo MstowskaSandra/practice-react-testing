@@ -28,7 +28,7 @@ function LoginForm(props) {
           checkValue(value);
           setUser({ ...user, [field]: { value, error: "" } });
         } catch (error) {
-          setUser({ ...user, [field]: { value, error: error.message } }); // Komunikat!
+          setUser({ ...user, [field]: { value, error: error.message } }); 
         }
       }
     }
